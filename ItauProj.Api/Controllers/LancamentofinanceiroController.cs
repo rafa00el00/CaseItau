@@ -56,9 +56,16 @@ namespace ItauProj.Api.Controllers
             return Ok(_lancamentoFinanceiroBo.GetAll(dataInicio,dataFim));
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> ConsultaLancamentoAsync([FromRoute] uint id)
+        {
+            return Ok(await _lancamentoFinanceiroBo.GetAsync(id));
+        }
+
         //public IActionResult ConsolidacaoDiaria() { throw new NotImplementedException(); }
 
-            [HttpGet]
+        [HttpGet]
             [Route("Relatorio")]
         public IActionResult RelatorioBalancoMensal() { throw new NotImplementedException(); }
 

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ItauProj.Web.Models.LancamentoFinanceiro>
+
+@{
+    ViewData["Title"] = "Lançamentos Financeiros";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-action="Pesquisar">
+    <div class="form-group">
+        <label class="control-label">Data Inicio:</label>
+        <input name="dtInicio" class="form-control" type="date" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Data Fim:</label>
+        <input name="dtFim" class="form-control" type="date" />
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Pesquisar" class="btn btn-primary" />
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DtHrLancamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DtHrLancamento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { item.Id }) |
+                    @Html.ActionLink("Deletar", "Delete", new { item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -25,7 +25,13 @@ namespace ItauProj.Api.Repositories
         public async Task<LancamentoFinanceiro> AlterarAsync(uint id, LancamentoFinanceiro lancamento) {
             if (id != lancamento.Id)
                 throw new  ArgumentException("Registros inconsistentes");
-            var lancamentoSalvo = _context.LancamentosFinanceiros.Update(lancamento);
+
+            var lancamentoOriginal = await GetAsync(id);
+
+            lancamentoOriginal.Tipo = lancamento.Tipo;
+            lancamentoOriginal.Valor = lancamento.Valor;
+
+            var lancamentoSalvo = _context.LancamentosFinanceiros.Update(lancamentoOriginal);
             await _context.SaveChangesAsync();
             return lancamentoSalvo.Entity;
 

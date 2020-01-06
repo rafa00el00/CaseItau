@@ -19,5 +19,7 @@ namespace ItauProj.Api.ViewModel
         public uint IdStatus { get; set; }
         public string DsStatus { get; set; }
 
+        public uint Tipo { get; set; }
+        public uint Status { get; set; }
     }
 }
