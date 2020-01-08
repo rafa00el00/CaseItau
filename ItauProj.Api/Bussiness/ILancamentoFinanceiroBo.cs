@@ -10,7 +10,7 @@ namespace ItauProj.Api.Bussiness
     {
         Task<LancamentoFinanceiroVM> AlterarAsync(uint id, LancamentoFinanceiro lancamento);
         Task DeletarAsync(uint id);
-        IEnumerable<LancamentoFinanceiroVM> GetAll(DateTime dataInicio, DateTime dataFim);
+        Task<IEnumerable<LancamentoFinanceiroVM>> GetAllAsync(DateTime dataInicio, DateTime dataFim);
         Task<LancamentoFinanceiroVM> GetAsync(uint id);
         Task<LancamentoFinanceiroVM> InserirAsync(LancamentoFinanceiro lancamento);
     }

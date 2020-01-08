@@ -11,7 +11,7 @@ namespace ItauProj.Web.Models
         public double ValorTotalCredito { get; set; }
         public double ValorTotalDebito { get; set; }
         public double ValorSaldo { get {
-                return ValorTotalCredito + ValorTotalDebito;
+                return  ValorTotalDebito - ValorTotalCredito;
             } }
 
     }

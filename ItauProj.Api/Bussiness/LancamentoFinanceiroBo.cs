@@ -49,14 +49,18 @@ namespace ItauProj.Api.Bussiness
 
             await _lancamntoFinanceiroRepository.DeletarAsync(id);
         }
-        public IEnumerable<LancamentoFinanceiroVM> GetAll(DateTime dataInicio,DateTime dataFim)
+        public async Task<IEnumerable<LancamentoFinanceiroVM>> GetAllAsync(DateTime dataInicio,DateTime dataFim)
         {
+            //Verifica itens para consolidar antes de dar um get
+            await consolidarDiaAsync();
+
             return _mapper.Map< IEnumerable<LancamentoFinanceiroVM>>(
                     _lancamntoFinanceiroRepository.GetAll()
                         .Where(l => l.DtHrLancamento > dataInicio.Date.AddHours(0).AddMinutes(0).AddSeconds(0))
                         .Where(l => l.DtHrLancamento < dataFim.Date.AddHours(23).AddMinutes(59).AddSeconds(59))
                     );
         }
+
         public async Task<LancamentoFinanceiroVM> GetAsync(uint id)
         {
             return _mapper.Map<LancamentoFinanceiroVM>(await _lancamntoFinanceiroRepository.GetAsync(id));
@@ -64,6 +68,17 @@ namespace ItauProj.Api.Bussiness
         public async Task<LancamentoFinanceiroVM> InserirAsync(LancamentoFinanceiro lancamento)
         {
             return _mapper.Map<LancamentoFinanceiroVM>(await _lancamntoFinanceiroRepository.InserirAsync(lancamento));
+        }
+
+        private async Task consolidarDiaAsync()
+        {
+            var lancamentosParaConsolidar =  _lancamntoFinanceiroRepository.GetAll().Where(d => d.DtHrLancamento.Date < DateTime.Now.Date && d.Status != Enuns.StatusLancamentoFinanceiro.Consolidado).ToList();
+
+            foreach (var lancamento in lancamentosParaConsolidar)
+            {
+                lancamento.Status = Enuns.StatusLancamentoFinanceiro.Consolidado;
+                await _lancamntoFinanceiroRepository.AlterarAsync(lancamento.Id, lancamento);
+            }
         }
     }
 }

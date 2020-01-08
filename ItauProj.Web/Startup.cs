@@ -33,6 +33,7 @@ namespace ItauProj.Web
             });
 
             services.AddScoped<ILancamentoFinanceiroService, LancamentoFinanceiroService>();
+            services.AddScoped<IBalancoDiaService, BalancoDiaService>();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

@@ -4,22 +4,30 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using ItauProj.Web.Models;
+using ItauProj.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ItauProj.Web.Controllers
 {
     public class BalancoDiaController : Controller
     {
-        public IActionResult Index()
+        private readonly IBalancoDiaService _balancoDiaService;
+
+        public BalancoDiaController(IBalancoDiaService balancoDiaService)
         {
-            
-            return View(new List<BalancoDia>());
+            this._balancoDiaService = balancoDiaService;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var balanco = await _balancoDiaService.GetBalancoMesAsync(DateTime.Now.Month, DateTime.Now.Year);
+            return View(balanco);
         }
 
-        public IActionResult Pesquisar(int mes, int ano)
+        public async Task<IActionResult> Pesquisar(int mes, int ano)
         {
 
-            return View("Index", new List<BalancoDia>());
+            var balanco = await _balancoDiaService.GetBalancoMesAsync(mes,ano);
+            return View("Index", balanco);
         }
     }
 }

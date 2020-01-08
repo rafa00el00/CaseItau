@@ -52,8 +52,8 @@ namespace ItauProj.Api.Controllers
             }
         }
         [HttpGet]
-        public IActionResult ConsultaLancamento([FromQuery] DateTime dataInicio, [FromQuery] DateTime dataFim) {
-            return Ok(_lancamentoFinanceiroBo.GetAll(dataInicio,dataFim));
+        public async Task<IActionResult> ConsultaLancamentoAsync([FromQuery] DateTime dataInicio, [FromQuery] DateTime dataFim) {
+            return Ok(await _lancamentoFinanceiroBo.GetAllAsync(dataInicio,dataFim));
         }
 
         [HttpGet]

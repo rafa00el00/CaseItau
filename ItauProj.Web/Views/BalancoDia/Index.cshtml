@@ -35,16 +35,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DataBalancio)
+                Data Balanço 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ValorTotalCredito)
+                Credito
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ValorTotalDebito)
+                Debito
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ValorSaldo)
+                Saldo
             </th>
             <th></th>
         </tr>
@@ -65,12 +65,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ValorSaldo)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
             </tr>
         }
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Total: </td>
+                <td> @Model.Sum(e => e.ValorSaldo)</td>
+            </tr>
     </tbody>
 </table>

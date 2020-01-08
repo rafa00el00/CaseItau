@@ -35,7 +35,7 @@ namespace ItauProj.Api.Bussiness
                 .GroupBy(
                     l => l.DtHrLancamento.Day,
                     e => new { debito = e.Tipo == Enuns.TipoLancamentoFinanceiro.Debito ? e.Valor : 0, credito = e.Tipo == Enuns.TipoLancamentoFinanceiro.Credito ? e.Valor : 0 })
-                    .Select((v,k) => new BalancoDia { DataBalancio = new DateTime(ano, mes, k), ValorTotalCredito = v.Sum(e => e.credito), ValorTotalDebito = v.Sum(e => e.debito) })
+                    .Select(v => new BalancoDia { DataBalancio = new DateTime(ano, mes, v.Key), ValorTotalCredito = v.Sum(e => e.credito), ValorTotalDebito = v.Sum(e => e.debito) })
                     ;
 
 
