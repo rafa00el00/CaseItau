@@ -12,8 +12,13 @@ namespace ItauProj.Api.Configuration
     {
         internal static void CreateIoc(IServiceCollection services)
         {
+            // Repositorio
             services.AddScoped<ILancamntoFinanceiroRepository, LancamntoFinanceiroRepository>();
+
+            //Bussines
             services.AddScoped<ILancamentoFinanceiroBo, LancamentoFinanceiroBo>();
+            services.AddScoped<IBalancoDiaBo, BalancoDiaBo>();
+            
         }
     }
 }

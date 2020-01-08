@@ -1,0 +1,76 @@
+﻿@using  System.Globalization;
+
+@model IEnumerable<ItauProj.Web.Models.BalancoDia>
+
+@{
+    ViewData["Title"] = "Index";
+    var i = 1;
+    var listaAno = Enumerable.Range(1990, DateTime.Now.Year).Select(e => new SelectListItem() { Value = e.ToString(), Text = e.ToString() } ); 
+}
+
+<h1>Balanço mensal</h1>
+
+
+<form asp-action="Pesquisar">
+    <div class="form-group">
+        <label class="control-label">Mes:</label>
+        <select name="mes" asp-items="DateTimeFormatInfo.CurrentInfo.MonthNames.Select( (e) => new SelectListItem() {  Value = (i++).ToString() , Text = e } )">
+            <option selected="selected" value="">Please select</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Ano:</label>
+        <select name="ano" asp-items="listaAno">
+            <option selected="selected" value="">Please select</option>
+        </select>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Pesquisar" class="btn btn-primary" />
+        </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DataBalancio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorTotalCredito)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorTotalDebito)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorSaldo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataBalancio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorTotalCredito)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorTotalDebito)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorSaldo)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
