@@ -32,7 +32,7 @@ namespace ItauProj.Api
             var connectionString = "";
             connectionString = Configuration["connectionString"];
             services.AddDbContext<ApplicationContext>(opt =>
-                opt.UseMySql(connectionString));
+                opt.UseSqlServer(connectionString));
 
             ConfigureIoc.CreateIoc(services);
 
